@@ -30,6 +30,7 @@ import sys
 import shutil
 
 top_level = 77
+folder_deep = 5
 lnk_temp = '%s- [%s](%s#%s)'
 TOC_MARK = '--------------'
 REG_TOC_MARK = r'--------------'
@@ -39,8 +40,11 @@ help_info = """
 Welcome use Markdown Folder TOC generate
     Usage:
         ./folder_toc.py <markdown folder>
-    You can also use -l to set generate level
-        ./folder_toc.py -l 3 <markdown folder>
+    You can also use -d to set generate deep
+        ./folder_toc.py -d 3 <markdown folder>
+
+    -d folder deep default 5
+    -l top level default 77
 
 more information see https://github.com/sinlov/markdown-folder-toc
 """
@@ -49,7 +53,7 @@ error_info = """
 Your input error
     Usage:
         ./folder_toc.py <markdown folder>
-    or input -h to see help
+    or input [-h] to see help
 """
 
 data = {"default": []}
@@ -82,10 +86,6 @@ def readList(*args):
 
 
 def _getVal(key): return data[key][0] if len(data[key]) > 0 else ""
-
-
-def check_dir_is_exist(dir_path=str):
-    return os.path.exists(dir_path)
 
 
 # def get_cur_dir():
@@ -156,14 +156,21 @@ def generate_file_toc(f_name=str, save_name=str):
 
 
 def generate_markdown_folder():
+    global folder_deep
     if os.path.exists(save_path):
         os.remove(save_path)
     print "=== Save path ===\nas: " + save_path + '\n'
-    for root, dirs, files in os.walk(folder_path, True):
+    if folder_deep != 5:
+        print 'folder level change as: ' + str(folder_deep) + '\n'
+    now_folder_deep = 1
+    for root, dirs, files in os.walk(folder_path, True, True):
         for name in files:
-            if name.endswith(".md"):
+            if name.endswith(".md") and folder_deep >= now_folder_deep:
                 print("Find markdown file at: " + os.path.join(root, name))
                 generate_file_toc(os.path.join(root, name), save_path)
+        for name in dirs:
+            now_folder_deep += 1
+            # print  'folder_deep: ' + str(folder_deep) + ' |now_folder_deep ' + str(now_folder_deep)
     with open(save_path, 'a') as f:
         f.write('\n' + TOC_MARK)
         f.write('\n\n\n')
@@ -174,25 +181,36 @@ def generate_markdown_folder():
 if __name__ == '__main__':
     folder_path = ''
     load()
+    is_check_args = False
+    # filter args start
     if read('-h'):
         print help_info
         exit(0)
     if len(sys.argv) == 1:
         folder_path = os.getcwd()
         print 'You want make toc at ' + folder_path
+        is_check_args = True
     elif read('-l'):
         top_level = read('-l')
-    elif read():
-        folder_path = read()
-    if read('-e') is None and len(sys.argv) > 2:
+        is_check_args = True
+    elif read('-d'):
+        folder_deep = int(read('-d'))
+        is_check_args = True
+    if read():
+        folder_path = os.getcwd() + '/' + read()
+        is_check_args = True
+    # filter args end
+    if read('-e') is None and len(sys.argv) > 2 and not is_check_args:
         print error_info
         exit(-1)
-    if not check_dir_is_exist(folder_path):
+    # check args finish
+    if not os.path.exists(folder_path):
         print "Your input Folder is not exist " + folder_path
         exit(-1)
     if os.path.isdir(folder_path) < 1:
         print "You input " + folder_path + "is not folder"
         exit(-2)
+    # check folder path finish
     save_path = os.path.realpath(folder_path) + "/preface.md"
     generate_markdown_folder()
     print '=== folder generate success! ===\nSee at ' + save_path

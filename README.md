@@ -14,6 +14,13 @@ can create full folder preface.md file
 folder_toc.py <folderName>
 ```
 
+## test
+
+```sh
+./folder_toc.py test/ -d 2
+```
+
+pass test
 
 ###License
 
