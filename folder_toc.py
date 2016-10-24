@@ -132,10 +132,10 @@ def tr_toc(header, file_name=str):
         (int(lvl) - top_level) * '    ', txt, file_name, re.sub(' ', '-', re.sub('[^-a-z0-9 ]', '', txt.lower())))
 
 
-def generate_file_toc(f_name=str, save_name=str):
+def generate_file_toc(root=str, root_len=int, f_name=str, save_name=str):
     global top_level
     lines = []
-    with open(f_name, 'r') as file:
+    with open(os.path.join(root, f_name), 'r') as file:
         lines = file.readlines()
         if len(lines) == 0:
             print 'You file is empty, please check it!'
@@ -147,7 +147,12 @@ def generate_file_toc(f_name=str, save_name=str):
         ln = len(re.search(r'^#+', h).group(0))
         top_level = ln if ln < top_level else top_level
         file_toc[i] = re.sub(r'^#+\s*', str(ln) + ' ', h)
-    file_toc = [tr_toc(h, f_name) for h in file_toc]
+    md_path = ''
+    if root[root_len:]:
+        md_path = root[root_len:] + '/' + f_name
+    else:
+        md_path = f_name
+    file_toc = [tr_toc(h, md_path) for h in file_toc]
     # write in file
     with open(save_name, 'a') as f:
         f.write('\n'.join(file_toc) + '\n')
@@ -155,7 +160,7 @@ def generate_file_toc(f_name=str, save_name=str):
         f.write('\n')
 
 
-def generate_markdown_folder():
+def generate_markdown_folder(root_path=str):
     global folder_deep
     if os.path.exists(save_path):
         os.remove(save_path)
@@ -163,11 +168,12 @@ def generate_markdown_folder():
     if folder_deep != 5:
         print 'folder level change as: ' + str(folder_deep) + '\n'
     now_folder_deep = 1
+    root_len = len(root_path)
     for root, dirs, files in os.walk(folder_path, True, True):
         for name in files:
             if name.endswith(".md") and folder_deep >= now_folder_deep:
                 print("Find markdown file at: " + os.path.join(root, name))
-                generate_file_toc(os.path.join(root, name), save_path)
+                generate_file_toc(root, root_len, name, save_path)
         for name in dirs:
             now_folder_deep += 1
             # print  'folder_deep: ' + str(folder_deep) + ' |now_folder_deep ' + str(now_folder_deep)
@@ -212,5 +218,5 @@ if __name__ == '__main__':
         exit(-2)
     # check folder path finish
     save_path = os.path.realpath(folder_path) + "/preface.md"
-    generate_markdown_folder()
+    generate_markdown_folder(folder_path)
     print '=== folder generate success! ===\nSee at ' + save_path

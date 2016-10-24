@@ -11,6 +11,13 @@ for markdown folder toc utils
 can create full folder preface.md file
 
 ```sh
+./folder_toc.py <folderName>
+```
+
+use in local path
+
+```sh
+chmod +x folder_toc.py
 folder_toc.py <folderName>
 ```
 
