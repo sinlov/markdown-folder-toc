@@ -2,6 +2,8 @@
 
 for markdown folder toc utils
 
+- need python 2.6.+
+
 # folder_toc.py
 
 - just in develop do not use
