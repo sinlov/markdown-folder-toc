@@ -1,16 +1,16 @@
-# 1 hashes as top level
+# 1 hashes as top level 中文
 
 foo bar
 
-## 2 hashes as top level
+## 2 Hashes as top level 中文
 
 foo bar
 
-### 3 hashes as top level
+### 3 Hashes as top level 中文
 
 foo bar
 
-### 3 hashes as top level
+### 3 Hashes as 中文 top level
 
 foo bar
 
