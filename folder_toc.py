@@ -129,7 +129,8 @@ def auto_move_toc(full):
 def tr_toc(header, file_name=str):
     global lnk_temp
     lvl, txt = re.findall(r'^(\d+) (.*)', header)[0]
-    return lnk_temp % ((int(lvl) - top_level) * '    ', txt, file_name, re.sub(' ', '-', re.sub(u'[^-a-z0-9 ]', '', txt.lower())))
+    return lnk_temp % ((int(lvl) - top_level) * '    ', txt, file_name,
+                       re.sub(' ', '-', re.sub(u'[^[\u4e00-\u9fa5_a-zA-Z0-9]+$]', '', txt.lower())))
 
 
 def generate_file_toc(root=str, root_len=int, f_name=str, save_name=str):
