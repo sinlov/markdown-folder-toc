@@ -191,6 +191,10 @@ if __name__ == '__main__':
     folder_path = ''
     load()
     is_check_args = False
+    print len(sys.argv)
+    if len(sys.argv) == 2 and sys.argv[1] == '-h':
+        print help_info
+        exit(0)
     # filter args start
     if read('-h'):
         print help_info
