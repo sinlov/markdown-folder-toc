@@ -180,6 +180,9 @@ def generate_markdown_folder(root_path=str):
     root_len = len(root_path)
     for root, dirs, files in os.walk(folder_path, True, True):
         for name in files:
+            if name.endswith('README.md'):
+                print("Find toc README file at: " + os.path.join(root, name) + ' Pass generate!')
+                break
             if name.endswith(toc_file_name):
                 print("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
                 break
