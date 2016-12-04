@@ -21,6 +21,12 @@ chmod +x folder_toc.py
 folder_toc.py <folderName>
 ```
 
+if use windows copy folder_toc.bat at same path of folder_toc.py, after what set all at Path
+
+```sh
+folder_toc.bat -h
+```
+
 ## test
 
 ```sh
@@ -29,7 +35,29 @@ folder_toc.py <folderName>
 
 pass test
 
-###License
+# summary_toc
+ 
+can create full folder SUMMARY.md file
+
+```sh
+./summary_toc.py <folderName>
+```
+
+use in local path
+
+```sh
+chmod +x summary_toc.py
+summary_toc.py <folderName>
+```
+
+if use windows copy summary_toc.bat at same path of summary_toc.py, after what set all at Path
+
+```sh
+summary_toc.bat -h
+```
+ 
+
+#License
 
 ---
 
