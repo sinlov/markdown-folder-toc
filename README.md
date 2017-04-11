@@ -37,7 +37,7 @@ pass test
 
 # summary_toc
  
-can create full folder SUMMARY.md file
+can create full folder SUMMARY.md file for https://www.gitbook.com/
 
 ```sh
 ./summary_toc.py <folderName>

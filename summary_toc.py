@@ -23,11 +23,13 @@
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 # OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 # IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-__author__ = 'sinlov'
+
 import os
 import re
 import sys
 import shutil
+
+__author__ = 'sinlov'
 
 top_level = 77
 folder_deep = 5
