@@ -179,12 +179,12 @@ def generate_markdown_folder(root_path=str):
     root_len = len(root_path)
     for root, dirs, files in os.walk(folder_path, True, True):
         for name in files:
-            if name.endswith(toc_file_name):
-                print("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
-                break
             if name.endswith(".md") and folder_deep >= now_folder_deep:
                 print("Find markdown file at: " + os.path.join(root, name))
                 generate_file_toc(root, root_len, name, save_path)
+            if name.endswith(toc_file_name):
+                print("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
+                # break
         for name in dirs:
             now_folder_deep += 1
             # print  'folder_deep: ' + str(folder_deep) + ' |now_folder_deep ' + str(now_folder_deep)
@@ -199,6 +199,9 @@ if __name__ == '__main__':
     folder_path = ''
     load()
     is_check_args = False
+    if len(sys.argv) < 2:
+        print error_info
+        exit(1)
     if len(sys.argv) == 2 and sys.argv[1] == '-h':
         print help_info
         exit(0)
@@ -206,8 +209,8 @@ if __name__ == '__main__':
     if read('-h'):
         print help_info
         exit(0)
-    if len(sys.argv) == 1:
-        folder_path = os.getcwd()
+    if len(sys.argv) == 2:
+        folder_path = os.path.join(os.getcwd(), str(sys.argv[1]))
         print 'You want make toc at ' + folder_path
         is_check_args = True
     elif read('-l'):

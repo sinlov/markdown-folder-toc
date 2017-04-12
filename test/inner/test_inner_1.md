@@ -2,15 +2,15 @@
 
 foo bar
 
-## 2 hashes_inner_1 as top level
+## 2 hashes_inner_1 as two level
 
 foo bar
 
-### 3 hashes_inner_1 as top level
+### 3 hashes_inner_1 as three level
 
 foo bar
 
-### 3 hashes_inner_1 as top level
+### 3 hashes_inner_1 as three level
 
 foo bar
 
@@ -26,12 +26,12 @@ foo bar
 
 over bar
 
-### 3 hashes_inner_1 as top level
+### 3 hashes_inner_1 as three level
 
 over bar
 
-## 2 hashes_inner_1 as top level
+## 2 hashes_inner_1 as two level
 
 over bar
 
-### 3 hashes_inner_1 as top level
+### 3 hashes_inner_1 as three level

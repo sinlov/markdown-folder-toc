@@ -2,11 +2,11 @@
 
 foo bar
 
-## 2 Hashes as top level 中文
+## 2 Hashes as two level 中文
 
 foo bar
 
-### 3 Hashes as top level 中文
+### 3 Hashes as three level 中文
 
 foo bar
 
@@ -26,12 +26,12 @@ foo bar
 
 over bar
 
-### 3 hashes as top level
+### 3 hashes as three level
 
 over bar
 
-## 2 hashes as top level
+## 2 hashes as two level
 
 over bar
 
-### 3 hashes as top level
+### 3 hashes as three level
