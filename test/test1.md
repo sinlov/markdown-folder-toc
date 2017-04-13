@@ -2,6 +2,14 @@
 
 foo bar
 
+```sh
+# da
+```
+
+```
+# more code
+```
+
 ## 2 Hashes as two level 中文
 
 foo bar

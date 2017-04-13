@@ -141,12 +141,19 @@ def tr_toc(header, file_name=str):
 def generate_file_toc(root=str, root_len=int, f_name=str, save_name=str):
     global top_level
     lines = []
-    with open(os.path.join(root, f_name), 'r') as file:
-        lines = file.readlines()
+    with open(os.path.join(root, f_name), 'r') as md_file:
+        lines = md_file.readlines()
         if len(lines) == 0:
             print 'You file is empty, please check it!'
             return
     newlines = auto_move_toc(lines)
+    code_mark_count = 0
+    for new_line in newlines:
+        if re.match(r'(```)+', new_line):
+            code_mark_count += 1
+        if re.match(r'#+', new_line) and code_mark_count % 2 == 0:
+            print newlines
+
     file_toc = [e.strip() for e in newlines if re.match(r'#+', e)]
     # encode TOC
     for i, h in enumerate(file_toc):
