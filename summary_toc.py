@@ -149,7 +149,16 @@ def generate_file_toc(root=str, root_len=int, f_name=str, save_name=str):
             print 'You file is empty, please check it!'
             return
     newlines = auto_move_toc(lines)
-    file_toc = [e.strip() for e in newlines if re.match(r'#+', e)]
+    # remove ``` ``` for line code
+    code_mark_count = 0
+    filter_lines = []
+    for new_line in newlines:
+        if re.match(r'(```)+', new_line):
+            code_mark_count += 1
+        if re.match(r'#+', new_line) and code_mark_count % 2 == 0:
+            filter_lines.append(new_line)
+    file_toc = [e.strip() for e in filter_lines if re.match(r'#+', e)]
+
     # encode TOC
     for i, h in enumerate(file_toc):
         ln = len(re.search(r'^#+', h).group(0))
@@ -184,10 +193,10 @@ def generate_markdown_folder(root_path=str):
         for name in files:
             if name.endswith('README.md'):
                 print("Find toc README file at: " + os.path.join(root, name) + ' Pass generate!')
-                break
+                # break
             if name.endswith(toc_file_name):
                 print("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
-                break
+                # break
             if name.endswith(".md") and folder_deep >= now_folder_deep:
                 print("Find markdown file at: " + os.path.join(root, name))
                 generate_file_toc(root, root_len, name, save_path)
@@ -205,6 +214,9 @@ if __name__ == '__main__':
     folder_path = ''
     load()
     is_check_args = False
+    if len(sys.argv) < 2:
+        print error_info
+        exit(1)
     if len(sys.argv) == 2 and sys.argv[1] == '-h':
         print help_info
         exit(0)
@@ -212,9 +224,9 @@ if __name__ == '__main__':
     if read('-h'):
         print help_info
         exit(0)
-    if len(sys.argv) == 1:
-        folder_path = os.getcwd()
-        print 'You want make toc at ' + folder_path
+    if len(sys.argv) == 2:
+        folder_path = os.path.join(os.getcwd(), str(sys.argv[1]))
+        print 'You want make SUMMARY toc\n\tat: ' + folder_path
         is_check_args = True
     elif read('-l'):
         top_level = read('-l')

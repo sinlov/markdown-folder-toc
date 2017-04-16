@@ -147,14 +147,16 @@ def generate_file_toc(root=str, root_len=int, f_name=str, save_name=str):
             print 'You file is empty, please check it!'
             return
     newlines = auto_move_toc(lines)
+    # remove ``` ``` for line code
     code_mark_count = 0
+    filter_lines = []
     for new_line in newlines:
         if re.match(r'(```)+', new_line):
             code_mark_count += 1
         if re.match(r'#+', new_line) and code_mark_count % 2 == 0:
-            print newlines
+            filter_lines.append(new_line)
+    file_toc = [e.strip() for e in filter_lines if re.match(r'#+', e)]
 
-    file_toc = [e.strip() for e in newlines if re.match(r'#+', e)]
     # encode TOC
     for i, h in enumerate(file_toc):
         ln = len(re.search(r'^#+', h).group(0))
@@ -218,7 +220,7 @@ if __name__ == '__main__':
         exit(0)
     if len(sys.argv) == 2:
         folder_path = os.path.join(os.getcwd(), str(sys.argv[1]))
-        print 'You want make toc at ' + folder_path
+        print 'You want make toc \n\tat: ' + folder_path
         is_check_args = True
     elif read('-l'):
         top_level = read('-l')
