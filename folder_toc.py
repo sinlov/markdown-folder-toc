@@ -30,6 +30,7 @@ import optparse
 
 __author__ = 'sinlov'
 
+is_verbose = False
 top_level = 77
 folder_deep = 5
 
@@ -78,6 +79,11 @@ Your input error
 #     filename = filename.replace('\\', '/')
 #     filename = re.sub('/+', '/', filename)
 #     return filename
+
+
+def print_cli_by_is_verbose(msg=str):
+    if is_verbose:
+        print msg
 
 
 def auto_move_toc(full):
@@ -149,12 +155,13 @@ def generate_markdown_folder(root_path=str):
     root_len = len(root_path)
     for root, dirs, files in os.walk(folder_path, True, True):
         for name in files:
-            if name.endswith(".md") and folder_deep >= now_folder_deep:
-                print("Find markdown file at: " + os.path.join(root, name))
-                generate_file_toc(root, root_len, name, save_path)
             if name.endswith(toc_file_name):
-                print("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
+                print_cli_by_is_verbose("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
                 # break
+            if name.endswith(".md") and folder_deep >= now_folder_deep:
+                print_cli_by_is_verbose("Find markdown file at: " + os.path.join(root, name))
+                generate_file_toc(root, root_len, name, save_path)
+
         for name in dirs:
             now_folder_deep += 1
             # print  'folder_deep: ' + str(folder_deep) + ' |now_folder_deep ' + str(now_folder_deep)
