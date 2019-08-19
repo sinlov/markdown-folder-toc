@@ -37,7 +37,7 @@ top_level = 77
 folder_deep = 5
 
 save_file_name = 'SUMMARY.md'
-toc_file_name = 'preface.md'
+toc_file_name = 'PREFACE.MD'
 
 lnk_temp = '%s- [%s](%s#%s)'
 path_lnk_temp = '[%s](%s)'
@@ -156,15 +156,16 @@ def generate_markdown_folder(root_path=str):
         print 'folder level change as: ' + str(folder_deep) + '\n'
     now_folder_deep = 1
     root_len = len(root_path)
-    for root, dirs, files in os.walk(folder_path, True, True):
-        for name in files:
-            if name.endswith('README.md'):
+    for root, dirs, files in os.walk(top=folder_path, topdown=True, followlinks=True):
+        s_files = sorted(files)
+        for name in s_files:
+            if name.upper().endswith('README.MD'):
                 print_cli_by_is_verbose("Find toc README file at: " + os.path.join(root, name) + ' Pass generate!')
                 # break
-            if name.endswith(toc_file_name):
+            if name.upper().endswith(toc_file_name):
                 print_cli_by_is_verbose("Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
                 # break
-            if name.endswith(".md") and folder_deep >= now_folder_deep:
+            if name.lower().endswith(".md") and folder_deep >= now_folder_deep:
                 print_cli_by_is_verbose("Find markdown file at: " + os.path.join(root, name))
                 generate_file_toc(root, root_len, name, save_path)
         for name in dirs:

@@ -14,10 +14,6 @@ foo bar
 
 foo bar
 
-#### sub level1-1 with special " ' & #'"
-
-foo bar
-
 #### sub level1-2 (parentheses)
 
 foo bar
