@@ -157,16 +157,19 @@ def generate_markdown_folder(root_path=str):
     for root, dirs, files in os.walk(top=folder_path, topdown=True, followlinks=False):
         s_files = sorted(files)
         for name in s_files:
-            if name.lower().endswith(".md") and folder_deep >= now_folder_deep:
+            abs_name = name
+            low_name = name.lower()
+            upper_name = name.upper()
+            if low_name.endswith(".md") and folder_deep >= now_folder_deep:
                 if name.upper().endswith('README.MD'):
-                    print_cli_by_is_verbose("Find toc README file at: " + os.path.join(root, name) + ' Pass generate!')
+                    print_cli_by_is_verbose("Find toc README file at: " + os.path.join(root, abs_name) + ' Pass generate!')
                 else:
-                    if name.upper().endswith(toc_file_name):
+                    if upper_name.endswith(toc_file_name):
                         print_cli_by_is_verbose(
-                            "Find toc markdown file at: " + os.path.join(root, name) + ' Pass generate!')
+                            "Find toc markdown file at: " + os.path.join(root, abs_name) + ' Pass generate!')
                     else:
-                        print_cli_by_is_verbose("Find markdown file at: " + os.path.join(root, name))
-                        generate_file_toc(root, root_len, name, save_path)
+                        print_cli_by_is_verbose("Find markdown file at: " + os.path.join(root, abs_name))
+                        generate_file_toc(root, root_len, abs_name, save_path)
 
         for name in dirs:
             now_folder_deep += 1
