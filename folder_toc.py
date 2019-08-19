@@ -157,7 +157,7 @@ def generate_markdown_folder(root_path=str):
     for root, dirs, files in os.walk(top=folder_path, topdown=True, followlinks=False):
         s_files = sorted(files)
         for name in s_files:
-            abs_name = name
+            abs_name = str(name)
             low_name = name.lower()
             upper_name = name.upper()
             if low_name.endswith(".md") and folder_deep >= now_folder_deep:
