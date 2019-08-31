@@ -1,0 +1,15 @@
+# https://docs.docker.com/compose/compose-file/
+version: '3.7'
+#networks:
+#  default:
+#volumes:
+#  recaptcha-data:
+services:
+  markdownFolderToc:
+    image: python:2.7.16
+#    container_name: "markdown-folder-toc"
+    volumes:
+      - "$PWD:/usr/src/myapp"
+#    ports:
+#      - "17778:17778"
+    working_dir: "/usr/src/myapp"
