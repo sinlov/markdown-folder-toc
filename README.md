@@ -2,7 +2,7 @@
 
 for markdown folder toc utils
 
-- need python 2.6.+
+- need python 3.6.+
 
 # folder_toc.py
 
@@ -36,7 +36,7 @@ folder_toc.bat -h
 pass test
 
 # summary_toc
- 
+
 can create full folder SUMMARY.md file for https://www.gitbook.com/
 
 ```sh
@@ -55,7 +55,7 @@ if use windows copy summary_toc.bat at same path of summary_toc.py, after what s
 ```sh
 summary_toc.bat -h
 ```
- 
+
 
 #License
 
